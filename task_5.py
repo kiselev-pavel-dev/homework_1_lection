@@ -22,6 +22,8 @@ def count_find_num(primesL: list, limit: int) -> list:
     """Нахождение чисел, которые можно разложить на множетели из primesL."""
     count = 0
     max = 0
+    if primesL == [] or limit <= 0:
+        return []
     for i in range(min(primesL), limit + 1):
         if prime_factors(i, primesL):
             count += 1
