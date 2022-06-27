@@ -8,7 +8,7 @@ def zeros(n: int) -> int:
     k_max = int(math.log(n, 5)) + 1
     result = 0
     for i in range(1, k_max):
-        result += int(n / (5**i))
+        result += n // (5**i)
     return result
 
 
