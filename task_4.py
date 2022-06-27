@@ -16,6 +16,8 @@ def bananas(s: str) -> set:
     """Возвращаем количество подстрок в строке s."""
     result = set()
     search_s = 'banana'
+    if len(s) < len(search_s):
+        return set()
     for item in combinations(range(len(s) + 1), len(search_s)):
         temp = tuple_to_str(item, s)
         if temp.replace('-', '') == search_s:
