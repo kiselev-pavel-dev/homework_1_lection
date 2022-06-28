@@ -1,12 +1,17 @@
 from itertools import combinations
 
 
-def tuple_to_str(tup: tuple, s: str) -> str:
+def tuple_to_str(tup: tuple, s: str, search_s: str) -> str:
     """Делаем необходимую нам строку с '-' из кортежа."""
+    """Если строка не подходит, возвращаем None."""
     result = ''
+    j = 0
     for i in range(len(s)):
         if i in tup:
+            if s[i] != search_s[j]:
+                return None
             result += s[i]
+            j += 1
         else:
             result += '-'
     return result
@@ -19,8 +24,8 @@ def bananas(s: str) -> set:
     if len(s) < len(search_s):
         return set()
     for item in combinations(range(len(s)), len(search_s)):
-        temp = tuple_to_str(item, s)
-        if temp.replace('-', '') == search_s:
+        temp = tuple_to_str(item, s, search_s)
+        if temp:
             result.add(temp)
     return result
 
