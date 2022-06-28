@@ -1,36 +1,19 @@
-def prime_factors(n: int, primesL: list) -> bool:
-    """Нахождение чисел, которые можно разложить на множетели из primesL."""
-    i = 0
-    used_numbers = set()
-    while primesL[i] * primesL[i] <= n and i <= len(primesL) - 1:
-        if n % primesL[i]:
-            i += 1
-            if i == len(primesL):
-                return False
-        else:
-            n //= primesL[i]
-            used_numbers.add(primesL[i])
-    if n > 1 and n not in primesL:
-        return False
-    used_numbers.add(n)
-    if used_numbers != set(primesL):
-        return False
-    return True
-
-
 def count_find_num(primesL: list, limit: int) -> list:
     """Нахождение чисел, которые можно разложить на множетели из primesL."""
-    count = 0
-    max = 0
-    if primesL == [] or limit <= 0:
+    result = []
+    compose = 1
+    for prime in primesL:
+        compose *= prime
+    if compose > limit:
         return []
-    for i in range(min(primesL), limit + 1):
-        if prime_factors(i, primesL):
-            count += 1
-            max = i
-    if count == 0:
-        return []
-    return [count, max]
+    result.append(compose)
+    for prime in primesL:
+        for composition in result:
+            temp = composition * prime
+            while temp <= limit and temp not in result:
+                result.append(temp)
+                temp *= prime
+    return [len(result), max(result)]
 
 
 def tests():
